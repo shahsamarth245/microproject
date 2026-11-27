@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #111827;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+        }
+
+        nav .logo {
+            color: #38bdf8;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #38bdf8;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-name {
+            color: #38bdf8;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            padding: 8px 16px;
+            background: transparent;
+            color: #38bdf8;
+            border: 1px solid #38bdf8;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #38bdf8;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 span {
+            color: #38bdf8;
+        }
+
+        .hero .title {
+            font-size: 22px;
+            color: #dbeafe;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #dbeafe;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #38bdf8;
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: white;
+            transform: translateY(-3px);
+        }
+
+        /* General Section */
+        section {
+            padding: 70px 8%;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 35px;
+            margin-bottom: 40px;
+            color: #1e3a8a;
+        }
+
+        /* About */
+        .about {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .about p {
+            margin-bottom: 15px;
+        }
+
+        /* Education */
+        .education-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .education-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .education-card h3 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .education-card p {
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        /* Skills */
+        .skills-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .skill {
+            margin-bottom: 20px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .skill-bar {
+            height: 12px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #38bdf8);
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+
+        /* Projects */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .project-card h3 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            color: #555;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer span {
+            color: #38bdf8;
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #38bdf8;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 700px) {
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav ul {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero .title {
+                font-size: 18px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            section {
+                padding: 50px 5%;
+            }
+
+            section h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">MyProfile</div>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <span class="user-name" id="userName"></span>
+            <a href="login.html" class="btn-logout" id="logoutBtn">Logout</a>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="loading">Loading profile...</div>
+            
+            <!-- Profile content will be injected here -->
+            <img id="profileImg" class="profile-img" style="display:none;" alt="Profile Photo">
+            <h1 id="profileName">Hello, I'm <span></span></h1>
+            <div class="title" id="profileTitle" style="display:none;"></div>
+            <p id="profileBio" style="display:none;"></p>
+            <a href="#about" class="btn">Explore My Profile</a>
+        </div>
+    </section>
+
+
+    <!-- About Me -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about" id="aboutContent">
+            <div class="loading">Loading...</div>
+        </div>
+    </section>
+
+
+    <!-- Education -->
+    <section id="education">
+        <h2>Education</h2>
+        <div class="education-container" id="educationContent">
+            <div class="loading">Loading...</div>
+        </div>
+    </section>
+
+
+    <!-- Skills -->
+    <section id="skills">
+        <h2>My Skills</h2>
+        <div class="skills-container" id="skillsContent">
+            <div class="loading">Loading...</div>
+        </div>
+    </section>
+
+
+    <!-- Projects -->
+    <section id="projects">
+        <h2>My Projects</h2>
+        <div class="projects-container" id="projectsContent">
+            <div class="loading">Loading...</div>
+        </div>
+    </section>
+
+
+    <!-- Contact -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-container">
+            <form class="contact-form" id="contactForm">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Subject" required>
+                <textarea placeholder="Write your message..." required></textarea>
+                <button type="submit" class="btn submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 <span id="footerName">MyProfile</span>. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const currentUser = sessionStorage.getItem('currentUser');
+            
+            if (!isLoggedIn || !currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const user = JSON.parse(currentUser);
+            loadProfile(user.id);
+            
+            // Update nav with user name
+            document.getElementById('userName').textContent = user.name;
+            
+            // Logout handler
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                sessionStorage.removeItem('isLoggedIn');
+                sessionStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            });
+        });
+
+        // Load profile data from localStorage
+        function loadProfile(userId) {
+            const users = JSON.parse(localStorage.getItem('myprofile_users') || '[]');
+            const user = users.find(u => u.id === userId);
+            
+            if (!user) {
+                // Fallback to demo user if not found
+                loadDemoProfile();
+                return;
+            }
+
+            // Update hero section
+            document.getElementById('profileImg').src = user.profileImage || 'https://via.placeholder.com/160';
+            document.getElementById('profileImg').style.display = 'block';
+            document.getElementById('profileName').innerHTML = `Hello, I'm <span>${escapeHtml(user.name)}</span>`;
+            
+            if (user.title) {
+                document.getElementById('profileTitle').textContent = user.title;
+                document.getElementById('profileTitle').style.display = 'block';
+            }
+            
+            if (user.bio) {
+                document.getElementById('profileBio').textContent = user.bio;
+                document.getElementById('profileBio').style.display = 'block';
+            }
+
+            // Update about section
+            const aboutContent = document.getElementById('aboutContent');
+            aboutContent.innerHTML = user.bio 
+                ? user.bio.split('\n\n').map(p => `<p>${escapeHtml(p)}</p>`).join('')
+                : '<div class="empty-state">No bio added yet.</div>';
+
+            // Update education
+            const educationContent = document.getElementById('educationContent');
+            if (user.education && user.education.length > 0) {
+                educationContent.innerHTML = user.education.map(edu => `
+                    <div class="education-card">
+                        <h3>${escapeHtml(edu.degree)}</h3>
+                        <p>${escapeHtml(edu.institution)}</p>
+                        <p>${escapeHtml(edu.field)}</p>
+                    </div>
+                `).join('');
+            } else {
+                educationContent.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
+                        <p>No education added yet.</p>
+                    </div>
+                `;
+            }
+
+            // Update skills
+            const skillsContent = document.getElementById('skillsContent');
+            if (user.skills && user.skills.length > 0) {
+                skillsContent.innerHTML = user.skills.map(skill => `
+                    <div class="skill">
+                        <div class="skill-name">
+                            <span>${escapeHtml(skill.name)}</span>
+                            <span>${skill.level}%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%" data-width="${skill.level}%"></div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Animate skill bars
+                setTimeout(() => {
+                    document.querySelectorAll('.skill-progress').forEach(bar => {
+                        bar.style.width = bar.dataset.width;
+                    });
+                }, 100);
+            } else {
+                skillsContent.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polyline points="16 18 22 12 16 6"/>
+                            <polyline points="8 6 2 12 8 18"/>
+                        </svg>
+                        <p>No skills added yet.</p>
+                    </div>
+                `;
+            }
+
+            // Update projects
+            const projectsContent = document.getElementById('projectsContent');
+            if (user.projects && user.projects.length > 0) {
+                projectsContent.innerHTML = user.projects.map(proj => `
+                    <div class="project-card">
+                        <h3>${escapeHtml(proj.name)}</h3>
+                        <p>${escapeHtml(proj.description)}</p>
+                    </div>
+                `).join('');
+            } else {
+                projectsContent.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/>
+                            <path d="M8 21h8M12 17v4"/>
+                        </svg>
+                        <p>No projects added yet.</p>
+                    </div>
+                `;
+            }
+
+            // Update footer
+            document.getElementById('footerName').textContent = user.name;
+        }
+
+        // Fallback demo profile
+        function loadDemoProfile() {
+            const demoUser = {
+                name: 'Shubh Gupta',
+                title: 'Student | Programmer | Web Development Enthusiast',
+                bio: "Hello! My name is Shubh. I am an enthusiastic engineering student interested in programming, web development and technology. I enjoy learning new skills, creating projects and solving problems using technology.\n\nMy goal is to continuously improve my technical knowledge and develop useful and creative applications.",
+                education: [
+                    { degree: 'Engineering', institution: 'Madhav Institute of Technology & Science, Gwalior', field: 'Computer Science Technology' },
+                    { degree: 'Class XII', institution: 'CBSE', field: 'Science Stream' },
+                    { degree: 'Class X', institution: 'CBSE', field: 'Secondary Education' }
+                ],
+                skills: [
+                    { name: 'HTML', level: 90 },
+                    { name: 'CSS', level: 80 },
+                    { name: 'C++', level: 70 },
+                    { name: 'Communication', level: 85 }
+                ],
+                projects: [
+                    { name: 'Personal Website', description: 'A responsive personal portfolio website created using HTML and CSS.' },
+                    { name: 'Student Login Page', description: 'A modern student login interface designed using HTML and CSS.' },
+                    { name: 'Quiz Website', description: 'An interactive MCQ-based quiz interface for students.' }
+                ],
+                profileImage: 'C:\\Users\\Acer\\Downloads\\WhatsApp Image 2026-02-05 at 23.13.39 (1).jpeg'
+            };
+
+            // Use demo user data
+            document.getElementById('profileImg').src = demoUser.profileImage;
+            document.getElementById('profileImg').style.display = 'block';
+            document.getElementById('profileName').innerHTML = `Hello, I'm <span>${demoUser.name}</span>`;
+            document.getElementById('profileTitle').textContent = demoUser.title;
+            document.getElementById('profileTitle').style.display = 'block';
+            document.getElementById('profileBio').textContent = demoUser.bio;
+            document.getElementById('profileBio').style.display = 'block';
+
+            document.getElementById('aboutContent').innerHTML = demoUser.bio.split('\n\n').map(p => `<p>${p}</p>`).join('');
+
+            document.getElementById('educationContent').innerHTML = demoUser.education.map(edu => `
+                <div class="education-card">
+                    <h3>${edu.degree}</h3>
+                    <p>${edu.institution}</p>
+                    <p>${edu.field}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('skillsContent').innerHTML = demoUser.skills.map(skill => `
+                <div class="skill">
+                    <div class="skill-name">
+                        <span>${skill.name}</span>
+                        <span>${skill.level}%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%" data-width="${skill.level}%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            setTimeout(() => {
+                document.querySelectorAll('.skill-progress').forEach(bar => {
+                    bar.style.width = bar.dataset.width;
+                });
+            }, 100);
+
+            document.getElementById('projectsContent').innerHTML = demoUser.projects.map(proj => `
+                <div class="project-card">
+                    <h3>${proj.name}</h3>
+                    <p>${proj.description}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('footerName').textContent = demoUser.name;
+        }
+
+        // Helper to escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
